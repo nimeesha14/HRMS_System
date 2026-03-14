@@ -84,3 +84,6 @@ def employee_dashboard(request):
 
 def profile(request):
     return render(request, "user/profile.html")
+
+def leave(request):
+    return render(request, "user/leave.html")
