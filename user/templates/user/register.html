@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+
+            <div class="card shadow-lg p-4">
+                <h3 class="text-center mb-4">Register</h3>
+
+                <form method="post" >
+                    {% csrf_token %}
+
+                    <!-- First Name -->
+                    <div class="mb-3">
+                        <label class="form-label">First Name</label>
+                        <input type="text" class="form-control" name="first_name" placeholder="Enter First Name" required>
+                    </div>
+
+                    <!-- Last Name -->
+                    <div class="mb-3">
+                        <label class="form-label">Last Name</label>
+                        <input type="text" class="form-control" name="last_name" placeholder="Enter Last Name" required>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" name="email" placeholder="Enter Email" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Role</label>
+                        <select class="form-select" name="role" required>
+                            <option value="">---------</option>
+                            <option value="MANAGER" {% if form.role.value == "MANAGER" %}selected{% endif %}>Manager</option>
+                            <option value="EMPLOYEE" {% if form.role.value == "EMPLOYEE" %}selected{% endif %}>Employee</option>
+                        </select>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="mb-3">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-control" name="password" placeholder="Enter Password" id="myInput">
+                    </div>
+
+
+                    <!-- Show Password Checkbox -->
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" onclick="myFunction()">
+                        <label class="form-check-label">Show Password</label>
+                    </div>
+
+                    <!-- Role Selection -->
+
+
+                    <button type="submit" class="btn btn-dark w-100">Sign Up</button>
+
+                    <p class="text-center mt-3">
+                        Already have an account?
+                        <a href="{% url 'login' %}">Login</a>
+                    </p>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% load static %}
+<script src="{% static 'user/js/main.js' %}"></script>
+
+{% endblock %}
