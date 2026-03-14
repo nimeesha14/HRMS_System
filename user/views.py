@@ -64,16 +64,13 @@ class LoginView(View):
             return render(request, self.template_name)
 
 
-
-
-
 @login_required
 def manager_dashboard(request):
 
     if request.user.role != User.Roles.MANAGER:
         return redirect("login")
 
-    return render(request, "dashboard/manager_dashboard.html")
+    return render(request, "dashboard/dashboard.html")
 
 
 @login_required
@@ -82,4 +79,8 @@ def employee_dashboard(request):
     if request.user.role != User.Roles.EMPLOYEE:
         return redirect("login")
 
-    return render(request, "dashboard/employee_dashboard.html")
+    return render(request, "dashboard/dashboard.html")
+
+
+def profile(request):
+    return render(request, "user/profile.html")

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if request.user.role == 'MANAGER' %}
+    <h1 class="text-center"> Manager</h1>
+{% else %}
+    <h1 class="text-center"> Employee</h1>
+{% endif %}
+
+{% endblock %}

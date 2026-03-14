@@ -11,7 +11,6 @@ class RegisterForm(forms.ModelForm):
     def save(self, commit=True):
         user = super().save(commit=False)
         user.set_password(self.cleaned_data['password'])
-        user.is_verified = True
         if not user.role:
             user.role = User.Roles.EMPLOYEE
         if commit:

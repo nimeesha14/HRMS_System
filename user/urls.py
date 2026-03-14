@@ -1,5 +1,5 @@
 from django.urls import path
-from user.views import RegisterView,LoginView, manager_dashboard,employee_dashboard,LogoutView
+from user.views import RegisterView,LoginView, manager_dashboard,employee_dashboard,LogoutView,profile
 
 urlpatterns = [
     path('',RegisterView.as_view(),name='register'),
@@ -7,5 +7,6 @@ urlpatterns = [
     path('manager/dashboard/', manager_dashboard, name='manager_dashboard'),
     path('employee/dashboard/', employee_dashboard, name='employee_dashboard'),
     path('logout/',LogoutView.as_view(),name='logout'),
+    path('profile/',profile,name='profile'),
 
 ]
