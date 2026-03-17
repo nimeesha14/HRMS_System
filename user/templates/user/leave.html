@@ -3,7 +3,7 @@
 
 {% block content %}
 <div class="container mt-5">
-    <h3 class="mb-4">My Leaves</h3>
+    <h3 class="mb-4 text-center">My Leaves</h3>
 
     <div class="card shadow-sm">
         <div class="card-body">
@@ -19,28 +19,30 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <!-- Example rows -->
+
+                    {% for leave in leaves %}
                     <tr>
-                        <th scope="row">1</th>
-                        <td>2026-03-15</td>
-                        <td>2026-03-17</td>
-                        <td>Personal work</td>
-                        <td><span class="badge bg-warning text-dark">Pending</span></td>
+                        <th scope="row">{{ leave.id }}</th>
+                        <td>{{ leave.start_date }}</td>
+                        <td>{{ leave.end_date }}</td>
+                        <td>{{ leave.reason }}</td>
+                        <td>
+                            {% if leave.status == "P" %}
+                            <span class="badge bg-warning text-dark">Pending</span>
+                            {% elif leave.status == "A" %}
+                            <span class="badge bg-success">Approved</span>
+                            {% else %}
+                            <span class="badge bg-danger">Rejected</span>
+                            {% endif %}
+                        </td>
                     </tr>
+                    {% empty %}
                     <tr>
-                        <th scope="row">2</th>
-                        <td>2026-02-10</td>
-                        <td>2026-02-12</td>
-                        <td>Medical leave</td>
-                        <td><span class="badge bg-success">Approved</span></td>
+                        <td colspan="5" class="text-center text-muted">
+                            No leave requests found
+                        </td>
                     </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>2026-01-05</td>
-                        <td>2026-01-07</td>
-                        <td>Vacation</td>
-                        <td><span class="badge bg-danger">Rejected</span></td>
-                    </tr>
+                    {% endfor %}
 
 
                     </tbody>

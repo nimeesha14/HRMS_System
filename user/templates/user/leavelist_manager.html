@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-2">
+    <h3 class="text-center mb-4">Employee Leave Requests</h3>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+            <tr>
+                <th>Employee Name</th>
+                <th>Department</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Reason</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for leave in leaves %}
+            <tr>
+                <td>{{ leave.user.get_full_name }}</td>
+                <td>{{ leave.user.userprofile.department }}</td>
+                <td>{{ leave.start_date }}</td>
+                <td>{{ leave.end_date }}</td>
+                <td>{{leave.reason}}</td>
+                <td>
+                    <div class="d-flex justify-content-center ">
+                    {% if leave.status == 'P' %}
+                        <button name="action" value="approve" class="btn btn-warning btn-sm text-white">Pending</button>
+                    {% elif leave.status == 'A' %}
+                        <button name="action" value="approve" class="btn btn-success btn-sm">Approve</button>
+                    {% else %}
+                        <button name="action" value="reject" class="btn btn-danger btn-sm">Reject</button>
+                    {% endif %}
+                    </div>
+                </td>
+                <td>
+                   <div class="d-flex justify-content-center ">
+                       <form method="post" action="{% url 'leave_action' leave.id %}">
+                           {% csrf_token %}
+                           <button name="action" value="approve" class="btn btn-success btn-sm">Approve</button>
+                           <button name="action" value="reject" class="btn btn-danger btn-sm  ">Reject</button>
+                       </form>
+                   </div>
+
+
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="6" class="text-center">No leave requests</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

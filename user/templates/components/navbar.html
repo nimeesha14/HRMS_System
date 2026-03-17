@@ -1,3 +1,4 @@
+{% load humanize %}
 <nav class="navbar navbar-expand-lg navbar-dark  fixed-top shadow">
     <div class="container-fluid">
         <a class="navbar-brand text-white" href="#">HRMS LMT</a>
@@ -7,7 +8,47 @@
 
         <div class="d-flex align-items-center">
             <button class="btn btn-link me-3 text-white">
-                <i class="bi bi-bell"></i> <!-- notification icon -->
+                <!-- navbar bell icon -->
+                <li class="nav-item dropdown">
+                    <!-- Bell icon button -->
+                    <a class="nav-link position-relative" href="{% url 'mark_notifications_seen' %}"
+                       id="notificationDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-bell fs-5"></i>
+                        {% if notification_count > 0 %}
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+        {{ notification_count }}
+        <span class="visually-hidden">unread notifications</span>
+    </span>
+                        {% endif %}
+                    </a>
+
+                    <!-- Dropdown menu -->
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown" style="min-width: 350px; max-width: 500px; word-wrap: break-word; max-height: 400px; overflow-y: auto;">
+                        {% if recent_notifications %}
+                        {% for n in recent_notifications %}
+                        <li>
+                            <a class="dropdown-item d-flex flex-column" href="#">
+                                <div>
+                                    {% if n.type == "leave" %}
+                                    📝
+                                    {% elif n.type == "announcement" %}
+                                    📢
+                                    {% else %}
+                                    ℹ️
+                                    {% endif %}
+                                    {{ n.message }}
+                                </div>
+                                <small class="text-muted mt-1">{{ n.created_at|naturaltime }}</small>
+                            </a>
+                        </li>
+                        {% endfor %}
+                        {% else %}
+                        <li>
+                            <span class="dropdown-item text-muted">No notifications</span>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </li>
             </button>
             <div class="dropdown">
                 <a class="nav-link dropdown-toggle text-white" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

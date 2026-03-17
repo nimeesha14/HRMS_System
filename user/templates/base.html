@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,16 +18,16 @@
 
 
 {% if request.user.is_authenticated %}
-{% include "components/navbar.html" %}
-    {% if request.user.role == 'MANAGER' %}
-        {% include "components/manager_sidebar.html" %}
-    {% else %}
-        {% include "components/employee_sidebar.html" %}
+    {% include "components/navbar.html" %}
+        {% if request.user.role == 'MANAGER' %}
+            {% include "components/manager_sidebar.html" %}
+        {% else %}
+            {% include "components/employee_sidebar.html" %}
     {% endif %}
 {% endif %}
 
 
-<div class="container">
+<div class="container mt-4 pt-5" style="{% if request.user.is_authenticated %}margin-left:250px{% endif %};">
 
     {% if messages %}
     {% for message in messages %}
@@ -42,13 +44,13 @@
 
 
 
-<div class="container " style="{% if request.user.is_authenticated %}margin-left: 250px{% else %}0{% endif %};">
+
+<div class="container mt-3 pt-2" style="{% if request.user.is_authenticated %}margin-left: 300px; {% else %}0{% endif %};">
     {% block content %}
     {% endblock %}
 </div>
+{% load static %}
+<script src="{% static 'user/js/message.js' %}"></script>
 </body>
 
-{% load static %}
-
-<script src="{% static 'user/js/messages.js' %}"></script>
 </html>
