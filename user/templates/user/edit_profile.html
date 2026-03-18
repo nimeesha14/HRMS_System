@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="edit-form border rounded-2 p-3">
+
+    <h3 class="mb-3 text-center">Update Profile</h3>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="mt-3">
+            <label class="form-label">Name</label>
+             <input type="text" class="form-control" value="{{ request.user.first_name}} {{request.user.last_name}}">
+
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-control" value="{{request.user.email}}">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Profile Picture</label>
+            <input type="file" name="profile_picture" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Department</label>
+            <select class="form-select" name="department">
+
+                <option selected>Select Department</option>
+                <option>Sales</option>
+                <option>IT</option>
+                <option>HR</option>
+                <option>Finance</option>
+                <option>Marketing</option>
+
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Join Date</label>
+            <input type="date" name="join_date" class="form-control">
+        </div>
+         <div class="text-center">
+             <button type="submit" class="btn btn-success">Save Profile</button>
+         </div>
+
+
+    </form>
+
+</div>
+{% endblock %}

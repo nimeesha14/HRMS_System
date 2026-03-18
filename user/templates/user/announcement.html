@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h3 class="text-center mb-4">Employee Announcements</h3>
+
+<div class="row">
+    {% for announcement in announcement %}
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <h5 class="card-header">Announcement</h5>
+            <div class="card-body">
+                <h5 class="card-title">{{ announcement.title }}</h5>
+                <p class="card-text">{{ announcement.content }}</p>
+                <h6 class="card-subtitle mb-2 text-muted">{{ announcement.announce_date }}</h6>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

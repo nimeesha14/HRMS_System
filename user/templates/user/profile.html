@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h3 class="text-center">Employee Profile</h3>
+<div class="d-flex justify-content-end align-items-center mb-4">
+    <button class="btn btn-primary " ><a class="text-white" href="{% url 'edit_profile' %}">Edit</a></button>
+</div>
+<div class="container-fluid border rounded-3 mt-2 shadow-sm">
+        <div class="row align-items-center">
+            <div class="col-md-4 text-center">
+                {% if profile.profile_picture %}
+                <img
+                        src="{{ profile.profile_picture.url }}"
+                        class="profile-img rounded-circle"
+                        style="width:150px; height:150px; object-fit:cover;"
+                >
+                {% else %}
+                <img
+                        src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                        class="profile-img rounded-circle"
+                        style="width:150px; height:150px; object-fit:cover;"
+                >
+                {% endif %}
+            </div>
+
+            <div class="col-md-8">
+                <p><strong>Name : </strong> {{ request.user.first_name }} {{request.user.last_name}}</p>
+                <p><strong>Email : </strong> {{ request.user.email}}</p>
+                <p><strong>Department : </strong> {{profile.department}}</p>
+                <p><strong>Join Date : </strong> {{profile.join_date}}</p>
+
+            </div>
+
+        </div>
+
+</div>
+
+
+
+
+{% endblock %}

@@ -1,4 +1,3 @@
-# user/backends.py
 from django.contrib.auth.backends import ModelBackend
 from .models import User
 
@@ -13,7 +12,7 @@ class EmailBackend(ModelBackend):
 
         if user.check_password(password):
             # For testing, skip verification
-            # if user.is_verified:
+            if user.is_verified:
               return user
         return None
 

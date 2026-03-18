@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,12 +10,24 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+
+
 </head>
 
 <body>
 
 
-<div class="container mt-3">
+{% if request.user.is_authenticated %}
+    {% include "components/navbar.html" %}
+        {% if request.user.role == 'MANAGER' %}
+            {% include "components/manager_sidebar.html" %}
+        {% else %}
+            {% include "components/employee_sidebar.html" %}
+    {% endif %}
+{% endif %}
+
+
+<div class="container mt-4 pt-5" style="{% if request.user.is_authenticated %}margin-left:250px{% endif %};">
 
     {% if messages %}
     {% for message in messages %}
@@ -28,12 +42,15 @@
 </div>
 
 
+
+
+
+<div class="container mt-3 pt-2" style="{% if request.user.is_authenticated %}margin-left: 300px; {% else %}0{% endif %};">
+    {% block content %}
+    {% endblock %}
+</div>
 {% load static %}
-
-<script src="{% static 'user/js/messages.js' %}"></script>
-
-{% block content %}
-{% endblock %}
-
+<script src="{% static 'user/js/message.js' %}"></script>
 </body>
+
 </html>
