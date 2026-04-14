@@ -297,7 +297,8 @@ class LeaveActionView(View):
 #     profile.save()
 #     return redirect(request.META.get('HTTP_REFERER', '/'))
 
-@login_required
 def mark_notifications_seen(request):
-    Notification.objects.filter(user=request.user, seen=False).update(seen=True)
+    if request.user.is_authenticated:
+        Notification.objects.filter(user=request.user, seen=False).update(seen=True)
+
     return redirect(request.META.get('HTTP_REFERER', '/'))

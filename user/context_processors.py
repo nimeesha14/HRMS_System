@@ -12,7 +12,7 @@ def notification_context(request):
 
         return {
             "notification_count": unread_notifications.count(),
-            "recent_notifications": all_notifications.order_by("-created_at")[:5]
+            "recent_notifications": all_notifications
         }
 
     return {
